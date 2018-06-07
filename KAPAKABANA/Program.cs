@@ -10,6 +10,7 @@ namespace KAPAKABANA
     {
         static void Main(string[] args)
         {
+
         }
     }
 }
