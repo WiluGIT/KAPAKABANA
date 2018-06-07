@@ -42,8 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Druzyna.cs" />
+    <Compile Include="DwaOgnie.cs" />
+    <Compile Include="Mecz.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PrzeciaganieLiny.cs" />
+    <Compile Include="Sedzia.cs" />
+    <Compile Include="SedziaPomocniczy.cs" />
+    <Compile Include="Siatkowka.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
