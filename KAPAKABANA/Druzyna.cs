@@ -17,5 +17,9 @@ namespace PO_KAPAKABANA
             this.nazwa = nazw;
             this.id = idd;
         }
+        public void setLiczbaZwyciestw()
+        {
+            this.liczbaZwyciestw++;
+        }
     }
 }
