@@ -38,6 +38,5 @@ namespace PO_KAPAKABANA
         {
 
         }
-
     }
 }

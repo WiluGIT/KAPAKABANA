@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Globalization;
+
+
 using PO_KAPAKABANA;
+
 
 namespace KAPAKABANA
 {
@@ -13,7 +18,7 @@ namespace KAPAKABANA
         private List<Mecz> lista_meczy = new List<Mecz>();
         private enum typTurnieju { PrzeciaganieLiny, DwaOgnie, Siatkowka };
         private int id;
-        private Druzyna[] finalisci;
+        private Druzyna[] finalisci = new Druzyna[4];
         
 
         public Turniej(int idd)
@@ -72,12 +77,22 @@ namespace KAPAKABANA
 
         public void OdczytZPliku(String nazwa)
         {
-
+            StreamReader sr = new StreamReader(nazwa);
+            String line;
+            while((line = sr.ReadLine())!= null)
+            {
+                Console.WriteLine(line);
+            }
+            sr.Close();
         }
 
         public Druzyna[] WyborFinalistow(List<Druzyna> lista_druzyn)
         {
-        
+            lista_druzyn.OrderByDescending(d => d.getLiczbaZwyciestw());
+            for(int i = 0; i < 4; i++)
+            {
+                finalisci[i] = lista_druzyn[i];
+            }
             return finalisci;
         }
 

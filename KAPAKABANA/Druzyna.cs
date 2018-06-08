@@ -21,5 +21,9 @@ namespace PO_KAPAKABANA
         {
             this.liczbaZwyciestw++;
         }
+        public int getLiczbaZwyciestw()
+        {
+            return this.liczbaZwyciestw;
+        }
     }
 }
