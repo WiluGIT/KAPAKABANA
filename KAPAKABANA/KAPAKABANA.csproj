@@ -51,6 +51,7 @@
     <Compile Include="Sedzia.cs" />
     <Compile Include="SedziaPomocniczy.cs" />
     <Compile Include="Siatkowka.cs" />
+    <Compile Include="Turniej.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
