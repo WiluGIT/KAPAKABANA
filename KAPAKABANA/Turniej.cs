@@ -19,7 +19,10 @@ namespace KAPAKABANA
         private enum typTurnieju { PrzeciaganieLiny, DwaOgnie, Siatkowka };
         private int id;
         private Druzyna[] finalisci = new Druzyna[4];
-        
+        public List<Mecz> getListeMeczy()
+        {
+            return lista_meczy;
+        }
 
         public Turniej(int idd)
         {

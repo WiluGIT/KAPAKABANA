@@ -31,7 +31,7 @@ namespace PO_KAPAKABANA
         }
 
         public void DodajDruzyne(Druzyna d)
-        {
+        { 
 
         }
         public void DodajSedziego(Sedzia s)
