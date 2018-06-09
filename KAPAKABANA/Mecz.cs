@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PO_KAPAKABANA
+namespace KAPAKABANA
 {
     class Mecz
     {
@@ -12,7 +12,6 @@ namespace PO_KAPAKABANA
         private Druzyna druzyna2;
         private Sedzia sedzia;
         private int id;
-        
 
         public Mecz(int idd)
         {

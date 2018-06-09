@@ -7,7 +7,6 @@ using System.IO;
 using System.Globalization;
 
 
-using PO_KAPAKABANA;
 
 
 namespace KAPAKABANA
@@ -16,17 +15,21 @@ namespace KAPAKABANA
     class Turniej
     {
         private List<Mecz> lista_meczy = new List<Mecz>();
-        private enum typTurnieju { PrzeciaganieLiny, DwaOgnie, Siatkowka };
         private int id;
+        public  enum typTurnieju { PrzeciaganieLiny, DwaOgnie, Siatkowka };
         private Druzyna[] finalisci = new Druzyna[4];
+        Random rnd = new Random();
+        public typTurnieju typ;
+
         public List<Mecz> getListeMeczy()
         {
             return lista_meczy;
         }
 
-        public Turniej(int idd)
+        public Turniej(int idd, typTurnieju typ_)
         {
             this.id = idd;
+            this.typ = typ_;
         }
 
         public void DodajDruzyne()
@@ -58,9 +61,20 @@ namespace KAPAKABANA
 
         }
 
-        public void StworzMecz()
+        public void StworzMecz(String imie1="",String nazwisko1="",String imie2="",String nazwisko2="")
         {
-
+            switch (typ)
+            {
+                case typTurnieju.PrzeciaganieLiny: PrzeciaganieLiny przeciaganieLiny = new PrzeciaganieLiny(rnd.Next());
+                    lista_meczy.Add(przeciaganieLiny);
+                    break;
+                case typTurnieju.DwaOgnie: DwaOgnie dwaOgnie = new DwaOgnie(rnd.Next());
+                    lista_meczy.Add(dwaOgnie);
+                    break;
+                case typTurnieju.Siatkowka: Siatkowka siatkowka = new Siatkowka(rnd.Next(), new SedziaPomocniczy(imie1, nazwisko1, rnd.Next()), new SedziaPomocniczy(imie2, nazwisko2, rnd.Next()));
+                    lista_meczy.Add(siatkowka);
+                    break;
+            }
         }
 
         public void WypiszWyniki(List<Druzyna> lista_druzyn)
