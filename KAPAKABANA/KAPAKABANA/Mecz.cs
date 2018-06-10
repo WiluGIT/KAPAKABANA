@@ -8,9 +8,7 @@ namespace PO_KAPAKABANA
 {
     class Mecz
     {
-        private Druzyna druzyna1;
-        private Druzyna druzyna2;
-        private Sedzia sedzia;
+
         private int id;
 
         private List<Druzyna> dwieDruzyny = new List<Druzyna>();
@@ -37,10 +35,10 @@ namespace PO_KAPAKABANA
         {
             if (wynik1 > wynik2)
             {
-                druzyna1.setLiczbaZwyciestw();
+                dwieDruzyny[0].setLiczbaZwyciestw();
             }else if (wynik2 > wynik1)
             {
-                druzyna2.setLiczbaZwyciestw();
+                dwieDruzyny[1].setLiczbaZwyciestw();
             }
         }
 

@@ -13,55 +13,88 @@ namespace KAPAKABANA
         static void Main(string[] args)
         {
             Random rnd = new Random();
-            Turniej turniej = new Turniej(rnd.Next(0, 10000),1);
-            int odp=1;
-            int odp2=0;
-            while (odp2 != 1)
-            {
-                Console.WriteLine("Menu\n1.Rozpocznij turniej.\n2.Wyjście z programu.");
-                odp2 = Convert.ToInt32(Console.ReadLine());
-                switch (odp2)
-                {
-                    case 1: Console.Clear();
-                        Console.WriteLine("Podaj typ turnieju:\n1-Przeciaganie liny\n2-Dwa Ognie\n3-Siatkowka");
-                        int wybor = Convert.ToInt32(Console.ReadLine());
-                        turniej.UstawTyp(wybor);
-                        turniej.wypisztyp();
-                        break;
-                    case 2:
-                        Environment.Exit(0);
-                        break;
-                    default: Console.WriteLine("Nie ma takiej opcji");
-                        break;
-                }
-
-            }
+            Console.WriteLine("Jaki typ turnieju chcialbys stworzyc ?\n1.Przeciaganie Liny\n2.Dwa Ognie\n3.Siatkowka");
+            int wybor = Convert.ToInt32(Console.ReadLine());
+            Turniej turniej = new Turniej(rnd.Next(0, 10000),wybor);
+            int odp=1,a = 0, wynik1,wynik2;
             while (odp != 0)
             {
-                Console.WriteLine("Menu\n1.Stworz mecz w turnieju.\n2.Dodaj druzyne do turnieju.\n3.Dodaj sedziego.\n5.Przeglad druzyn.\n6.Przeglad sedziow.");
+                Console.WriteLine("Menu.\n1.Dodaj druzyne do turnieju.\n2.Dodaj sedziego.\n3.Przeglad druzyn.\n4.Przeglad sedziow.\n5.Przeglad wynikow.\n6.Usun druzyne.\n7.Usun sedziego.\n8.Zapisz danych do pliku.\n9.Odczyt danych z pliku\n10.Rozpocznij turniej\n0.Wyjdz z programu");
                 odp = Convert.ToInt32(Console.ReadLine());
                 switch (odp)
                 {
-                    case 1: Console.Clear();
-                        turniej.StworzMecz();
-                        break;
-                    case 2: Console.Clear();
+                    case 1:
+                        Console.Clear();
                         turniej.DodajDruzyne();
                         break;
-                    case 3: Console.Clear();
+                    case 2:
+                        Console.Clear();
                         turniej.DodajSedziego();
                         break;
-                    case 5: Console.Clear();
+                    case 3:
+                        Console.Clear();
                         turniej.PrzegladDruzyn();
                         break;
-                    case 6: Console.Clear();
+                    case 4:
+                        Console.Clear();
                         turniej.PrzegladSedziow();
                         break;
+                    case 5:
+                        Console.Clear();
+                        turniej.WypiszWyniki();
+                        break;
+                    case 6:
+                        Console.Clear();
+                        Console.WriteLine("Podaj id usuwanej druzyny:");
+                        int idChocie = int.Parse(Console.ReadLine());
+                        turniej.UsunDruzyne(idChocie);
+                        break;
+                    case 7:
+                        Console.Clear();
+                        Console.WriteLine("Podaj id usuwanego sedziego:");
+                        int idChoice2 = int.Parse(Console.ReadLine());
+                        turniej.UsunSedziego(idChoice2);
+                        break;
+                    case 8:
+                        Console.WriteLine("Podaj nazwe pliku:");
+                        string fileName = Console.ReadLine();
+                        Console.WriteLine("Podaj rodzaj do zapisu\n1.Druzyna\n2.Sedzie\n3.Mecze");
+                        int rodzaj_doZapisu = Convert.ToInt32(Console.ReadLine());
+                        turniej.ZapisDoPliku(fileName,rodzaj_doZapisu);
+                        break;
+                    case 9:
+                        Console.WriteLine("Podaj nazwe pliku");
+                        string fileName2 = Console.ReadLine();
+                        Console.WriteLine("Podaj rodzaj do odczytu\n1.Druzyna\n2.Sedzie\n3.Mecze");
+                        int rodzaj_doOdczytu = Convert.ToInt32(Console.ReadLine());
+                        turniej.OdczytZPliku(fileName2,rodzaj_doOdczytu);
+                        break;
+                    case 10:
+                        for (int i = 0; i < turniej.getDruzyny().Count(); i++)
+                        {
+                            for (int j = 1; j < turniej.getDruzyny().Count(); j++)
+                            {
+                                turniej.StworzMecz();
+                                turniej.getMecze()[a].DodajDruzyne(turniej.getDruzyny()[i]);
+                                turniej.getMecze()[a].DodajDruzyne(turniej.getDruzyny()[j]);
+                                Console.WriteLine("Podaj wynik pierwszej druzyny " + turniej.getMecze()[a].getDruzyny()[0].getNazwa());
+                                wynik1 = Convert.ToInt32(Console.ReadLine());
+                                Console.WriteLine("Podaj wynik drugiej druzyny " + turniej.getMecze()[a].getDruzyny()[1].getNazwa());
+                                wynik2 = Convert.ToInt32(Console.ReadLine());
+                                turniej.getMecze()[a].UstawWygranego(wynik1, wynik2);
+                                a++;
+                            }
+                        }
+                        turniej.WyborFinalistow();
+                        turniej.GenereowaniePolFinalow();
+                        turniej.GenerowanieFinalow();
+                        break;
                     case 0: break;
-                    default: Console.WriteLine("Nie ma takiej opcji");
+                    default:
+                        Console.WriteLine("Nie ma takiej opcji");
                         break;
                 }
-            }
+            }   
         }
     }
 }

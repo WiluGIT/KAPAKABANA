@@ -23,11 +23,22 @@ namespace KAPAKABANA
         private Druzyna[] finalisci = new Druzyna[4];
         Random rnd = new Random();
         private typTurnieju typ;
+        private Druzyna[] final = new Druzyna[2];
         
         public Turniej(int idd, int typ_)
         {
             this.id = idd;
             this.typ = (typTurnieju)typ_;
+        }
+
+        public List<Mecz> getMecze()
+        {
+            return this.lista_meczy;
+        }
+
+        public List<Druzyna> getDruzyny()
+        {
+            return this.lista_allDruzyn;
         }
 
         public void DodajDruzyne()
@@ -98,11 +109,9 @@ namespace KAPAKABANA
 
         public void StworzMecz()
         {
- 
-            //int typ= (int)this.typTurnieju;
-            String n1, n2, s1, s2;
-            int i1, i2;
 
+            String s1, s2, n1, n2;
+            int i1, i2;
             switch (typ)
             {
                 case typTurnieju.PrzeciaganieLiny: PrzeciaganieLiny przeciaganieLiny = new PrzeciaganieLiny(rnd.Next());
@@ -143,64 +152,46 @@ namespace KAPAKABANA
 
             }
         }
+        public void GenereowaniePolFinalow()
+        {
 
+            for (int i = 0; i < 2; i++)
+            {
+                Console.WriteLine((i + 1) + ".Mecz polfinalowy zagra druzyna {0} z {1} ", finalisci[i].getNazwa(), finalisci[i + 2].getNazwa());
+                Console.WriteLine("Podaj zwyciezce: ");
+                Console.WriteLine("1 - {0}", finalisci[i].getNazwa());
+                Console.WriteLine("2 - {0}", finalisci[i + 2].getNazwa());
+                int wybor1 = int.Parse(Console.ReadLine());
+                if (wybor1 == 1)
+                {
+                    finalisci[i].setLiczbaZwyciestw();
+                    final[i] = finalisci[i];
+                }
+                else if (wybor1 == 2)
+                {
+                    finalisci[i + 2].setLiczbaZwyciestw();
+                    final[i] = finalisci[i + 2];
+                }
+                else
+                {
+                    Console.WriteLine("Zly wybor");
+                }
+            }
+
+        }
         public void GenerowanieFinalow()
         {
-            Console.WriteLine("Pierwszy mecz polfinalowy zagra druzyna {0} z {1} ", finalisci[0].getNazwa(), finalisci[1].getNazwa());
-            Console.WriteLine("Podaj zwyciezce: ");
-            Console.WriteLine("1 - {0}", finalisci[0].getNazwa());
-            Console.WriteLine("2 - {0}", finalisci[1].getNazwa());
-            Druzyna[] final = new Druzyna[2];
-            int wybor1 = int.Parse(Console.ReadLine());
-            if(wybor1==1)
-            {
-                finalisci[0].setLiczbaZwyciestw();
-                final[0] = finalisci[0];
-            }
-            else if(wybor1==2)
-            {
-                finalisci[1].setLiczbaZwyciestw();
-                final[0] = finalisci[1];
-            }
-            else
-            {
-                Console.WriteLine("Zly wybor");
-            }
-
-
-            Console.WriteLine("Drugi mecz polfinalowy zagra druzyna {0} z {1} ", finalisci[2].getNazwa(), finalisci[3].getNazwa());
-            Console.WriteLine("Podaj zwyciezce: ");
-            Console.WriteLine("1 - {0}", finalisci[2].getNazwa());
-            Console.WriteLine("2 - {0}", finalisci[3].getNazwa());
-            
-            int wybor2 = int.Parse(Console.ReadLine());
-            if (wybor2 == 1)
-            {
-                finalisci[2].setLiczbaZwyciestw();
-                final[1] = finalisci[2];
-            }
-            else if (wybor2 == 2)
-            {
-                finalisci[3].setLiczbaZwyciestw();
-                final[1] = finalisci[3];
-            }
-            else
-            {
-                Console.WriteLine("Zly wybor");
-            }
-
-
             Console.WriteLine("Final gra {0} z {1} ", final[0].getNazwa(), final[1].getNazwa());
             Console.WriteLine("Podaj zwyciezce: ");
             Console.WriteLine("1 - {0}", final[0].getNazwa());
             Console.WriteLine("2 - {0}", final[1].getNazwa());
-            
+
             int wybor3 = int.Parse(Console.ReadLine());
             if (wybor3 == 1)
             {
                 final[0].setLiczbaZwyciestw();
                 Console.WriteLine("Turniej wygrywa druzyna: {0}", final[0].getNazwa());
-                
+
             }
             else if (wybor3 == 2)
             {
@@ -214,46 +205,99 @@ namespace KAPAKABANA
 
         }
 
-        public void ZapisDoPliku(String nazwa)
+        public void ZapisDoPliku(String nazwa, int rodzaj_listy)
         {
-            StreamWriter sw = new StreamWriter(nazwa);
-            for(int i = 0; i < lista_meczy.Count(); i++)
-            {
-                sw.WriteLine((i + 1) + ".Mecz\tID meczu:  " + lista_meczy[i].getId()  + "\tPomiedzy: {0} i {1}\tSedziowal: {2}", lista_meczy[i].getDruzyny()[0], lista_meczy[i].getDruzyny()[1], lista_meczy[i].getSedzie()[0]);
-            }
-            sw.WriteLine("-------------------------------------------------------------------");
-            for(int i = 0; i < lista_allDruzyn.Count(); i++) 
-            {
-                sw.WriteLine("Druzyna: {0}\tID Druzyny: {1}\tLiczba zwyciestw: {2}", lista_allDruzyn[i].getNazwa(), lista_allDruzyn[i].getId(), lista_allDruzyn[i].getLiczbaZwyciestw());
-            }
-            sw.WriteLine("-------------------------------------------------------------------");
 
-            for (int i = 0; i < lista_allSedziow.Count(); i++)
+            StreamWriter sw = new StreamWriter(nazwa);
+            switch (rodzaj_listy)
             {
-                sw.WriteLine("Imie i Nazwisko sedziego: {0} {1}\tID Sedziego: {2}", lista_allSedziow[i].getImie(),lista_allSedziow[i].getNazwisko(), lista_allSedziow[i].getId());
+                case 1:
+                    for (int i = 0; i < lista_allDruzyn.Count(); i++)
+                    {
+                        sw.WriteLine(lista_allDruzyn[i].getNazwa() + "," + lista_allDruzyn[i].getId() + "," + lista_allDruzyn[i].getLiczbaZwyciestw());
+                    }
+                    break;
+                case 2:
+                    for (int i = 0; i < lista_allSedziow.Count(); i++)
+                    {
+                        sw.WriteLine(lista_allSedziow[i].getImie() + "," + lista_allSedziow[i].getNazwisko() + "," + lista_allSedziow[i].getId());
+                    }
+                    break;
+                case 3:
+                    for (int i = 0; i < lista_meczy.Count(); i++)
+                    {
+                        sw.WriteLine(lista_meczy[i].getId() + "," + lista_meczy[i].getDruzyny()[0].getNazwa() + "," + lista_meczy[i].getDruzyny()[1].getNazwa() + "," + lista_meczy[i].getSedzie()[0].getId());
+                    }
+                    break;
             }
             sw.Close();
         }
 
-        public void OdczytZPliku(String nazwa)
+        public void OdczytZPliku(String nazwa, int rodzaj_listy)
         {
             StreamReader sr = new StreamReader(nazwa);
-            String line;
-            while((line = sr.ReadLine())!= null)
+            String linia;
+            NumberFormatInfo separator = new NumberFormatInfo();
+            separator.NumberGroupSeparator = ",";
+            switch (rodzaj_listy)
             {
-                Console.WriteLine(line);
+                case 1:
+                    Druzyna tmp1;
+                    while ((linia = sr.ReadLine()) != null)
+                    {
+                        string[] s = linia.Split(null);
+                        tmp1 = new Druzyna(s[0], int.Parse(s[1]));
+                        for (int i = 0; i < int.Parse(s[2]); i++)
+                        {
+                            tmp1.setLiczbaZwyciestw();
+                        }
+                        lista_allDruzyn.Add(tmp1);
+                    }
+                    break;
+                case 2:
+                    Sedzia tmp2;
+                    while ((linia = sr.ReadLine()) != null)
+                    {
+                        string[] s = linia.Split(null);
+                        tmp2 = new Sedzia(s[0], s[1], int.Parse(s[2]));
+                        lista_allSedziow.Add(tmp2);
+                    }
+                    break;
+                case 3:
+                    Mecz tmp3;
+                    while ((linia = sr.ReadLine()) != null)
+                    {
+                        string[] s = linia.Split(null);
+                        tmp3 = new Mecz(int.Parse(s[0]));
+                        foreach (Druzyna d in lista_allDruzyn)
+                        {
+                            if (d.getId() == int.Parse(s[1]))
+                                tmp3.DodajDruzyne(d);
+                        }
+                        foreach (Druzyna d in lista_allDruzyn)
+                        {
+                            if (d.getId() == int.Parse(s[2]))
+                                tmp3.DodajDruzyne(d);
+                        }
+                        foreach (Sedzia se in lista_allSedziow)
+                        {
+                            if (se.getId() == int.Parse(s[3]))
+                                tmp3.DodajSedziego(se);
+                        }
+                        lista_meczy.Add(tmp3);
+                    }
+                    break;
             }
             sr.Close();
         }
 
-        public Druzyna[] WyborFinalistow()
+        public void WyborFinalistow()
         {
             lista_allDruzyn.OrderByDescending(d => d.getLiczbaZwyciestw());
             for(int i = 0; i < 4; i++)
             {
                 finalisci[i] = lista_allDruzyn[i];
             }
-            return finalisci;
         }
 
         public int getId()
@@ -267,6 +311,10 @@ namespace KAPAKABANA
         public void wypisztyp()
         {
             Console.WriteLine(typ);
+        }
+        public typTurnieju getTyp()
+        {
+            return this.typ;
         }
     }
 }
