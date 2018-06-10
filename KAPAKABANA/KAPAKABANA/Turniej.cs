@@ -96,17 +96,20 @@ namespace KAPAKABANA
 
         public void StworzMecz()
         {
-            Console.WriteLine("Podaj typ meczu który chcesz stworzyc:");
-            Console.WriteLine("1.Siatkowka");
-            Console.WriteLine("2.Dwa Ognie");
-            Console.WriteLine("3.Przeciaganie Liny");
-            int wybor= int.Parse(Console.ReadLine());
+ 
+            int typ= (int)this.typTurnieju;
             String n1, n2, s1, s2;
             int i1, i2;
 
-            switch (wybor)
+            switch (typ)
             {
-                case 1: Console.WriteLine("Podaj imie sedziego pomocniczego: ");
+                case 0: PrzeciaganieLiny przeciaganieLiny = new PrzeciaganieLiny(rnd.Next());
+                    lista_meczy.Add(przeciaganieLiny);
+                    break;
+                case 1: DwaOgnie dwaOgnie = new DwaOgnie(rnd.Next());
+                    lista_meczy.Add(dwaOgnie);
+                    break;
+                case 2: Console.WriteLine("Podaj imie sedziego pomocniczego: ");
                     n1 = Console.ReadLine();
                     Console.WriteLine("Podaj nazwisko sedziego pomocniczego: ");
                     s1 = Console.ReadLine();
@@ -124,12 +127,6 @@ namespace KAPAKABANA
                     lista_meczy.Add(siatkowka);
                     lista_allSedziow.Add(sp1);
                     lista_allSedziow.Add(sp2);
-                    break;
-                case 2: DwaOgnie dwaOgnie = new DwaOgnie(rnd.Next());
-                    lista_meczy.Add(dwaOgnie);
-                    break;
-                case 3: PrzeciaganieLiny przeciaganieLiny = new PrzeciaganieLiny(rnd.Next());
-                    lista_meczy.Add(przeciaganieLiny);
                     break;
             }
 
@@ -260,6 +257,14 @@ namespace KAPAKABANA
         public int getId()
         {
             return this.id;
+        }
+        public void UstawTyp(int typ)
+        {
+            this.typTurnieju =typ;
+        }
+        public void wypisztyp()
+        {
+            Console.WriteLine(typTurnieju);
         }
     }
 }
