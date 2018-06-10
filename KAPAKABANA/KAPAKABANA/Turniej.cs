@@ -97,7 +97,7 @@ namespace KAPAKABANA
         public void StworzMecz()
         {
  
-            int typ= typTurnieju;
+            int typ= (int)this.typTurnieju;
             String n1, n2, s1, s2;
             int i1, i2;
 
@@ -257,6 +257,14 @@ namespace KAPAKABANA
         public int getId()
         {
             return this.id;
+        }
+        public void UstawTyp(int typ)
+        {
+            this.typTurnieju =typ;
+        }
+        public void wypisztyp()
+        {
+            Console.WriteLine(typTurnieju);
         }
     }
 }
