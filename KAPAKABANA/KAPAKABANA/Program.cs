@@ -13,7 +13,7 @@ namespace KAPAKABANA
         static void Main(string[] args)
         {
             Random rnd = new Random();
-            Turniej turniej = new Turniej(rnd.Next(0, 10000));
+            Turniej turniej = new Turniej(rnd.Next(0, 10000),1);
             int odp=1;
             int odp2=0;
             while (odp2 != 1)
@@ -29,7 +29,8 @@ namespace KAPAKABANA
                         turniej.wypisztyp();
                         break;
                     case 2:
-                        Environment.Exit();
+                        Environment.Exit(0);
+                        break;
                     default: Console.WriteLine("Nie ma takiej opcji");
                         break;
                 }

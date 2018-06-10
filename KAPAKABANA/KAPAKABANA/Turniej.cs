@@ -18,14 +18,16 @@ namespace KAPAKABANA
         private List<Mecz> lista_meczy = new List<Mecz>();
         private List<Druzyna> lista_allDruzyn = new List<Druzyna>();
         private List<Sedzia> lista_allSedziow = new List<Sedzia>();
-        private enum typTurnieju { PrzeciaganieLiny, DwaOgnie, Siatkowka };
+        public enum typTurnieju { PrzeciaganieLiny=1, DwaOgnie, Siatkowka };
         private int id;
         private Druzyna[] finalisci = new Druzyna[4];
         Random rnd = new Random();
-
-        public Turniej(int idd)
+        private typTurnieju typ;
+        
+        public Turniej(int idd, int typ_)
         {
             this.id = idd;
+            this.typ = (typTurnieju)typ_;
         }
 
         public void DodajDruzyne()
@@ -97,19 +99,19 @@ namespace KAPAKABANA
         public void StworzMecz()
         {
  
-            int typ= (int)this.typTurnieju;
+            //int typ= (int)this.typTurnieju;
             String n1, n2, s1, s2;
             int i1, i2;
 
             switch (typ)
             {
-                case 0: PrzeciaganieLiny przeciaganieLiny = new PrzeciaganieLiny(rnd.Next());
+                case typTurnieju.PrzeciaganieLiny: PrzeciaganieLiny przeciaganieLiny = new PrzeciaganieLiny(rnd.Next());
                     lista_meczy.Add(przeciaganieLiny);
                     break;
-                case 1: DwaOgnie dwaOgnie = new DwaOgnie(rnd.Next());
+                case typTurnieju.DwaOgnie: DwaOgnie dwaOgnie = new DwaOgnie(rnd.Next());
                     lista_meczy.Add(dwaOgnie);
                     break;
-                case 2: Console.WriteLine("Podaj imie sedziego pomocniczego: ");
+                case typTurnieju.Siatkowka: Console.WriteLine("Podaj imie sedziego pomocniczego: ");
                     n1 = Console.ReadLine();
                     Console.WriteLine("Podaj nazwisko sedziego pomocniczego: ");
                     s1 = Console.ReadLine();
@@ -258,13 +260,13 @@ namespace KAPAKABANA
         {
             return this.id;
         }
-        public void UstawTyp(int typ)
+        public void UstawTyp(int typ_)
         {
-            this.typTurnieju =typ;
+            this.typ =(typTurnieju)typ_;
         }
         public void wypisztyp()
         {
-            Console.WriteLine(typTurnieju);
+            Console.WriteLine(typ);
         }
     }
 }
