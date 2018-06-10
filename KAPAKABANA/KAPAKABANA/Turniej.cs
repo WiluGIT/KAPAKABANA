@@ -35,6 +35,10 @@ namespace KAPAKABANA
         {
             return this.lista_meczy;
         }
+        public List<Sedzia> getSedzie()
+        {
+            return this.lista_allSedziow;
+        }
 
         public List<Druzyna> getDruzyny()
         {
@@ -52,9 +56,6 @@ namespace KAPAKABANA
              name = Console.ReadLine();
              Druzyna dTmp = new Druzyna(name, idDruzyny);
              lista_allDruzyn.Add(dTmp);
-            /*Druzyna dTmp = new Druzyna(name, idDruzyny);
-            lista_allDruzyn.Add(dTmp);*/
-
         }
         public void DodajSedziego()
         {
@@ -75,14 +76,12 @@ namespace KAPAKABANA
 
         public void UsunDruzyne(int idd)
         {
-           // lista_allDruzyn.RemoveAt(idd);
             Druzyna dr = lista_allDruzyn.Find(d => d.getId().Equals(idd));
             lista_allDruzyn.Remove(dr);
         }
 
         public void UsunSedziego(int idd)
         {
-           // lista_allSedziow.RemoveAt(idd);
             Sedzia se = lista_allSedziow.Find(s => s.getId().Equals(idd));
             lista_allSedziow.Remove(se);
         }
@@ -152,6 +151,13 @@ namespace KAPAKABANA
 
             }
         }
+        public void WypiszMecze()
+        {
+            foreach (Mecz m in lista_meczy)
+            {
+                Console.WriteLine(m.getId() + " " + m.getDruzyny()[0].getNazwa() + " " + m.getDruzyny()[1].getNazwa() + " " + m.getSedzie()[0].getId());
+            }
+        }
         public void GenereowaniePolFinalow()
         {
 
@@ -214,19 +220,19 @@ namespace KAPAKABANA
                 case 1:
                     for (int i = 0; i < lista_allDruzyn.Count(); i++)
                     {
-                        sw.WriteLine(lista_allDruzyn[i].getNazwa() + "," + lista_allDruzyn[i].getId() + "," + lista_allDruzyn[i].getLiczbaZwyciestw());
+                        sw.WriteLine(lista_allDruzyn[i].getNazwa() + " " + lista_allDruzyn[i].getId() + " " + lista_allDruzyn[i].getLiczbaZwyciestw());
                     }
                     break;
                 case 2:
                     for (int i = 0; i < lista_allSedziow.Count(); i++)
                     {
-                        sw.WriteLine(lista_allSedziow[i].getImie() + "," + lista_allSedziow[i].getNazwisko() + "," + lista_allSedziow[i].getId());
+                        sw.WriteLine(lista_allSedziow[i].getImie() + " " + lista_allSedziow[i].getNazwisko() + " " + lista_allSedziow[i].getId());
                     }
                     break;
                 case 3:
                     for (int i = 0; i < lista_meczy.Count(); i++)
                     {
-                        sw.WriteLine(lista_meczy[i].getId() + "," + lista_meczy[i].getDruzyny()[0].getNazwa() + "," + lista_meczy[i].getDruzyny()[1].getNazwa() + "," + lista_meczy[i].getSedzie()[0].getId());
+                        sw.WriteLine(lista_meczy[i].getId() + " " + lista_meczy[i].getDruzyny()[0].getNazwa() + " " + lista_meczy[i].getDruzyny()[1].getNazwa() + " " + lista_meczy[i].getSedzie()[0].getId());
                     }
                     break;
             }
@@ -237,8 +243,6 @@ namespace KAPAKABANA
         {
             StreamReader sr = new StreamReader(nazwa);
             String linia;
-            NumberFormatInfo separator = new NumberFormatInfo();
-            separator.NumberGroupSeparator = ",";
             switch (rodzaj_listy)
             {
                 case 1:
@@ -271,12 +275,12 @@ namespace KAPAKABANA
                         tmp3 = new Mecz(int.Parse(s[0]));
                         foreach (Druzyna d in lista_allDruzyn)
                         {
-                            if (d.getId() == int.Parse(s[1]))
+                            if (d.getNazwa() == s[1])
                                 tmp3.DodajDruzyne(d);
                         }
                         foreach (Druzyna d in lista_allDruzyn)
                         {
-                            if (d.getId() == int.Parse(s[2]))
+                            if (d.getNazwa() == s[2])
                                 tmp3.DodajDruzyne(d);
                         }
                         foreach (Sedzia se in lista_allSedziow)
@@ -293,10 +297,11 @@ namespace KAPAKABANA
 
         public void WyborFinalistow()
         {
-            lista_allDruzyn.OrderByDescending(d => d.getLiczbaZwyciestw());
+            List<Druzyna> tmp = new List<Druzyna>();
+            tmp = lista_allDruzyn.OrderByDescending(d => d.getLiczbaZwyciestw()).ToList();
             for(int i = 0; i < 4; i++)
             {
-                finalisci[i] = lista_allDruzyn[i];
+                finalisci[i] = tmp[i];
             }
         }
 

@@ -19,7 +19,7 @@ namespace KAPAKABANA
             int odp=1,a = 0, wynik1,wynik2;
             while (odp != 0)
             {
-                Console.WriteLine("Menu.\n1.Dodaj druzyne do turnieju.\n2.Dodaj sedziego.\n3.Przeglad druzyn.\n4.Przeglad sedziow.\n5.Przeglad wynikow.\n6.Usun druzyne.\n7.Usun sedziego.\n8.Zapisz danych do pliku.\n9.Odczyt danych z pliku\n10.Rozpocznij turniej\n0.Wyjdz z programu");
+                Console.WriteLine("Menu.\n1.Dodaj druzyne do turnieju.\n2.Dodaj sedziego.\n3.Przeglad druzyn.\n4.Przeglad sedziow.\n5.Przeglad wynikow.\n6.Przeglad meczy\n7.Usun druzyne.\n8.Usun sedziego.\n9.Zapisz danych do pliku.\n10.Odczyt danych z pliku\n11.Rozpocznij turniej\n0.Wyjdz z programu");
                 odp = Convert.ToInt32(Console.ReadLine());
                 switch (odp)
                 {
@@ -43,40 +43,48 @@ namespace KAPAKABANA
                         Console.Clear();
                         turniej.WypiszWyniki();
                         break;
-                    case 6:
+                    case 6: Console.Clear();
+                        turniej.WypiszMecze();
+                        break;
+                    case 7:
                         Console.Clear();
                         Console.WriteLine("Podaj id usuwanej druzyny:");
                         int idChocie = int.Parse(Console.ReadLine());
                         turniej.UsunDruzyne(idChocie);
                         break;
-                    case 7:
+                    case 8:
                         Console.Clear();
                         Console.WriteLine("Podaj id usuwanego sedziego:");
                         int idChoice2 = int.Parse(Console.ReadLine());
                         turniej.UsunSedziego(idChoice2);
                         break;
-                    case 8:
+                    case 9:
                         Console.WriteLine("Podaj nazwe pliku:");
                         string fileName = Console.ReadLine();
                         Console.WriteLine("Podaj rodzaj do zapisu\n1.Druzyna\n2.Sedzie\n3.Mecze");
                         int rodzaj_doZapisu = Convert.ToInt32(Console.ReadLine());
                         turniej.ZapisDoPliku(fileName,rodzaj_doZapisu);
                         break;
-                    case 9:
+                    case 10:
                         Console.WriteLine("Podaj nazwe pliku");
                         string fileName2 = Console.ReadLine();
                         Console.WriteLine("Podaj rodzaj do odczytu\n1.Druzyna\n2.Sedzie\n3.Mecze");
                         int rodzaj_doOdczytu = Convert.ToInt32(Console.ReadLine());
                         turniej.OdczytZPliku(fileName2,rodzaj_doOdczytu);
                         break;
-                    case 10:
+                    case 11:
+                        if (turniej.getDruzyny().Count() < 4) {
+                            Console.WriteLine("Za mala liczba druzyn");
+                            break;
+                        }
                         for (int i = 0; i < turniej.getDruzyny().Count(); i++)
                         {
-                            for (int j = 1; j < turniej.getDruzyny().Count(); j++)
+                            for (int j = i+1; j < turniej.getDruzyny().Count(); j++)
                             {
                                 turniej.StworzMecz();
                                 turniej.getMecze()[a].DodajDruzyne(turniej.getDruzyny()[i]);
                                 turniej.getMecze()[a].DodajDruzyne(turniej.getDruzyny()[j]);
+                                turniej.getMecze()[a].DodajSedziego(turniej.getSedzie()[rnd.Next(0,turniej.getSedzie().Count())]);
                                 Console.WriteLine("Podaj wynik pierwszej druzyny " + turniej.getMecze()[a].getDruzyny()[0].getNazwa());
                                 wynik1 = Convert.ToInt32(Console.ReadLine());
                                 Console.WriteLine("Podaj wynik drugiej druzyny " + turniej.getMecze()[a].getDruzyny()[1].getNazwa());
