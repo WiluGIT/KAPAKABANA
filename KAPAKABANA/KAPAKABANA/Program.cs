@@ -4,13 +4,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using PO_KAPAKABANA;
+
 namespace KAPAKABANA
 {
     class Program
     {
         static void Main(string[] args)
         {
-
+            Random rnd = new Random();
+            Turniej turniej = new Turniej(rnd.Next(0, 10000));
+            int odp=1;
+            while (odp != 0)
+            {
+                Console.WriteLine("Menu\n1.Stworz mecz w turnieju.\n2.Dodaj druzyne do turnieju.\n3.Dodaj sedziego.\n5.Przeglad druzyn.\n6.Przeglad sedziow.\n0.Rozpocznij turniej");
+                odp = Convert.ToInt32(Console.ReadLine());
+                switch (odp)
+                {
+                    case 1: Console.Clear();
+                        turniej.StworzMecz();
+                        break;
+                    case 2: Console.Clear();
+                        turniej.DodajDruzyne();
+                        break;
+                    case 3: Console.Clear();
+                        turniej.DodajSedziego();
+                        break;
+                    case 5: Console.Clear();
+                        turniej.PrzegladDruzyn();
+                        break;
+                    case 6: Console.Clear();
+                        turniej.PrzegladSedziow();
+                        break;
+                    case 0: break;
+                    default: Console.WriteLine("Nie ma takiej opcji");
+                        break;
+                }
+            }
         }
     }
 }

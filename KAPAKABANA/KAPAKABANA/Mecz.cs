@@ -15,7 +15,18 @@ namespace PO_KAPAKABANA
 
         private List<Druzyna> dwieDruzyny = new List<Druzyna>();
         private Sedzia[] sedziaTab = new Sedzia[1];
-        
+        public int getId()
+        {
+            return this.id;
+        }
+        public List<Druzyna> getDruzyny()
+        {
+            return this.dwieDruzyny;
+        }
+        public Sedzia[] getSedzie()
+        {
+            return this.sedziaTab;
+        }
 
         public Mecz(int idd)
         {

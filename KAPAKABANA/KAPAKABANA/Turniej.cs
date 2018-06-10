@@ -21,7 +21,7 @@ namespace KAPAKABANA
         private enum typTurnieju { PrzeciaganieLiny, DwaOgnie, Siatkowka };
         private int id;
         private Druzyna[] finalisci = new Druzyna[4];
-        
+        Random rnd = new Random();
 
         public Turniej(int idd)
         {
@@ -30,16 +30,17 @@ namespace KAPAKABANA
 
         public void DodajDruzyne()
         {
-            string name;
-            int idDruzyny;
+             string name;
+             int idDruzyny;
 
-            Console.WriteLine("Podaj id druzyny: ");
-            idDruzyny = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Podaj nazwe druzyny: ");
-            name = Console.ReadLine();
-            Druzyna dTmp = new Druzyna(name, idDruzyny);
-            lista_allDruzyn.Add(dTmp);
-
+             Console.WriteLine("Podaj id druzyny: ");
+             idDruzyny = Convert.ToInt32(Console.ReadLine());
+             Console.WriteLine("Podaj nazwe druzyny: ");
+             name = Console.ReadLine();
+             Druzyna dTmp = new Druzyna(name, idDruzyny);
+             lista_allDruzyn.Add(dTmp);
+            /*Druzyna dTmp = new Druzyna(name, idDruzyny);
+            lista_allDruzyn.Add(dTmp);*/
 
         }
         public void DodajSedziego()
@@ -61,12 +62,16 @@ namespace KAPAKABANA
 
         public void UsunDruzyne(int idd)
         {
-            lista_allDruzyn.RemoveAt(idd);
+           // lista_allDruzyn.RemoveAt(idd);
+            Druzyna dr = lista_allDruzyn.Find(d => d.getId().Equals(idd));
+            lista_allDruzyn.Remove(dr);
         }
 
         public void UsunSedziego(int idd)
         {
-            lista_allSedziow.RemoveAt(idd);
+           // lista_allSedziow.RemoveAt(idd);
+            Sedzia se = lista_allSedziow.Find(s => s.getId().Equals(idd));
+            lista_allSedziow.Remove(se);
         }
 
         public void PrzegladDruzyn()
@@ -96,8 +101,37 @@ namespace KAPAKABANA
             Console.WriteLine("2.Dwa Ognie");
             Console.WriteLine("3.Przeciaganie Liny");
             int wybor= int.Parse(Console.ReadLine());
-            
+            String n1, n2, s1, s2;
+            int i1, i2;
 
+            switch (wybor)
+            {
+                case 1: Console.WriteLine("Podaj imie sedziego pomocniczego: ");
+                    n1 = Console.ReadLine();
+                    Console.WriteLine("Podaj nazwisko sedziego pomocniczego: ");
+                    s1 = Console.ReadLine();
+                    Console.WriteLine("Podaj id sedziego pomocniczego: ");
+                    i1 = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Podaj imie sedziego pomocniczego: ");
+                    n2 = Console.ReadLine();
+                    Console.WriteLine("Podaj nazwisko sedziego pomocniczego: ");
+                    s2 = Console.ReadLine();
+                    Console.WriteLine("Podaj id sedziego pomocniczego: ");
+                    i2 = int.Parse(Console.ReadLine());
+                    SedziaPomocniczy sp1 = new SedziaPomocniczy(n1, s1, i1);
+                    SedziaPomocniczy sp2 = new SedziaPomocniczy(n2, s2, i2);
+                    Siatkowka siatkowka = new Siatkowka(rnd.Next(),sp1,sp2);
+                    lista_meczy.Add(siatkowka);
+                    lista_allSedziow.Add(sp1);
+                    lista_allSedziow.Add(sp2);
+                    break;
+                case 2: DwaOgnie dwaOgnie = new DwaOgnie(rnd.Next());
+                    lista_meczy.Add(dwaOgnie);
+                    break;
+                case 3: PrzeciaganieLiny przeciaganieLiny = new PrzeciaganieLiny(rnd.Next());
+                    lista_meczy.Add(przeciaganieLiny);
+                    break;
+            }
 
         }
 
@@ -183,7 +217,23 @@ namespace KAPAKABANA
 
         public void ZapisDoPliku(String nazwa)
         {
+            StreamWriter sw = new StreamWriter(nazwa);
+            for(int i = 0; i < lista_meczy.Count(); i++)
+            {
+                sw.WriteLine((i + 1) + ".Mecz\tID meczu:  " + lista_meczy[i].getId()  + "\tPomiedzy: {0} i {1}\tSedziowal: {2}", lista_meczy[i].getDruzyny()[0], lista_meczy[i].getDruzyny()[1], lista_meczy[i].getSedzie()[0]);
+            }
+            sw.WriteLine("-------------------------------------------------------------------");
+            for(int i = 0; i < lista_allDruzyn.Count(); i++) 
+            {
+                sw.WriteLine("Druzyna: {0}\tID Druzyny: {1}\tLiczba zwyciestw: {2}", lista_allDruzyn[i].getNazwa(), lista_allDruzyn[i].getId(), lista_allDruzyn[i].getLiczbaZwyciestw());
+            }
+            sw.WriteLine("-------------------------------------------------------------------");
 
+            for (int i = 0; i < lista_allSedziow.Count(); i++)
+            {
+                sw.WriteLine("Imie i Nazwisko sedziego: {0} {1}\tID Sedziego: {2}", lista_allSedziow[i].getImie(),lista_allSedziow[i].getNazwisko(), lista_allSedziow[i].getId());
+            }
+            sw.Close();
         }
 
         public void OdczytZPliku(String nazwa)
@@ -197,16 +247,19 @@ namespace KAPAKABANA
             sr.Close();
         }
 
-        public Druzyna[] WyborFinalistow(List<Druzyna> lista_druzyn)
+        public Druzyna[] WyborFinalistow()
         {
-            lista_druzyn.OrderByDescending(d => d.getLiczbaZwyciestw());
+            lista_allDruzyn.OrderByDescending(d => d.getLiczbaZwyciestw());
             for(int i = 0; i < 4; i++)
             {
-                finalisci[i] = lista_druzyn[i];
+                finalisci[i] = lista_allDruzyn[i];
             }
             return finalisci;
         }
 
-
+        public int getId()
+        {
+            return this.id;
+        }
     }
 }

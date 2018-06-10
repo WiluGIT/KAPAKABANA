@@ -5,3 +5,10 @@ C:\Users\Konrad\Source\Repos\KAPAKABANA\KAPAKABANA\obj\Debug\KAPAKABANA.csprojRe
 C:\Users\Konrad\Source\Repos\KAPAKABANA\KAPAKABANA\obj\Debug\KAPAKABANA.csproj.CoreCompileInputs.cache
 C:\Users\Konrad\Source\Repos\KAPAKABANA\KAPAKABANA\obj\Debug\KAPAKABANA.exe
 C:\Users\Konrad\Source\Repos\KAPAKABANA\KAPAKABANA\obj\Debug\KAPAKABANA.pdb
+C:\Users\Michał\Source\Repos\KAPAKABANA\KAPAKABANA\KAPAKABANA\bin\Debug\KAPAKABANA.exe.config
+C:\Users\Michał\Source\Repos\KAPAKABANA\KAPAKABANA\KAPAKABANA\bin\Debug\KAPAKABANA.exe
+C:\Users\Michał\Source\Repos\KAPAKABANA\KAPAKABANA\KAPAKABANA\bin\Debug\KAPAKABANA.pdb
+C:\Users\Michał\Source\Repos\KAPAKABANA\KAPAKABANA\KAPAKABANA\obj\Debug\KAPAKABANA.csprojResolveAssemblyReference.cache
+C:\Users\Michał\Source\Repos\KAPAKABANA\KAPAKABANA\KAPAKABANA\obj\Debug\KAPAKABANA.csproj.CoreCompileInputs.cache
+C:\Users\Michał\Source\Repos\KAPAKABANA\KAPAKABANA\KAPAKABANA\obj\Debug\KAPAKABANA.exe
+C:\Users\Michał\Source\Repos\KAPAKABANA\KAPAKABANA\KAPAKABANA\obj\Debug\KAPAKABANA.pdb
