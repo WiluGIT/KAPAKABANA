@@ -16,3 +16,10 @@ C:\Users\Kacper\Source\Repos\KAPAKABANA2\KAPAKABANA\KAPAKABANA\obj\Debug\KAPAKAB
 C:\Users\Kacper\Source\Repos\KAPAKABANA2\KAPAKABANA\KAPAKABANA\obj\Debug\KAPAKABANA.csproj.CoreCompileInputs.cache
 C:\Users\Kacper\Source\Repos\KAPAKABANA2\KAPAKABANA\KAPAKABANA\obj\Debug\KAPAKABANA.exe
 C:\Users\Kacper\Source\Repos\KAPAKABANA2\KAPAKABANA\KAPAKABANA\obj\Debug\KAPAKABANA.pdb
+C:\Users\wolfr\Source\Repos\KAPAKABANA\KAPAKABANA\KAPAKABANA\bin\Debug\KAPAKABANA.exe.config
+C:\Users\wolfr\Source\Repos\KAPAKABANA\KAPAKABANA\KAPAKABANA\bin\Debug\KAPAKABANA.exe
+C:\Users\wolfr\Source\Repos\KAPAKABANA\KAPAKABANA\KAPAKABANA\bin\Debug\KAPAKABANA.pdb
+C:\Users\wolfr\Source\Repos\KAPAKABANA\KAPAKABANA\KAPAKABANA\obj\Debug\KAPAKABANA.csprojAssemblyReference.cache
+C:\Users\wolfr\Source\Repos\KAPAKABANA\KAPAKABANA\KAPAKABANA\obj\Debug\KAPAKABANA.csproj.CoreCompileInputs.cache
+C:\Users\wolfr\Source\Repos\KAPAKABANA\KAPAKABANA\KAPAKABANA\obj\Debug\KAPAKABANA.exe
+C:\Users\wolfr\Source\Repos\KAPAKABANA\KAPAKABANA\KAPAKABANA\obj\Debug\KAPAKABANA.pdb
