@@ -49,41 +49,62 @@ namespace KAPAKABANA
         {
              string name;
              int idDruzyny;
-
-             Console.WriteLine("Podaj id druzyny: ");
-             idDruzyny = Convert.ToInt32(Console.ReadLine());
-             Console.WriteLine("Podaj nazwe druzyny: ");
-             name = Console.ReadLine();
-             Druzyna dTmp = new Druzyna(name, idDruzyny);
-             lista_allDruzyn.Add(dTmp);
+            try
+            {
+                Console.WriteLine("Podaj id druzyny: ");
+                idDruzyny = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Podaj nazwe druzyny: ");
+                name = Console.ReadLine();
+                Druzyna dTmp = new Druzyna(name, idDruzyny);
+                lista_allDruzyn.Add(dTmp);
+            }
+            catch(FormatException ex)
+            {
+                Console.WriteLine("Podano nieprawidlowy format! {0}", ex.Message);
+            }
+             
         }
         public void DodajSedziego()
         {
-            string name;
-            string surname;
-            int idSedziego;
-            Console.WriteLine("Podaj imie sedziego: ");
-            name = Console.ReadLine();
-            Console.WriteLine("Podaj nazwisko sedziego: ");
-            surname = Console.ReadLine();
-            Console.WriteLine("Podaj id sedziego: ");
-            idSedziego = int.Parse(Console.ReadLine());
+            try
+            {
+                string name;
+                string surname;
+                int idSedziego;
+                Console.WriteLine("Podaj imie sedziego: ");
+                name = Console.ReadLine();
+                Console.WriteLine("Podaj nazwisko sedziego: ");
+                surname = Console.ReadLine();
+                Console.WriteLine("Podaj id sedziego: ");
+                idSedziego = int.Parse(Console.ReadLine());
 
-            Sedzia sTmp = new Sedzia(name, surname, idSedziego);
-            lista_allSedziow.Add(sTmp);
+                Sedzia sTmp = new Sedzia(name, surname, idSedziego);
+                lista_allSedziow.Add(sTmp);
+            }
+            catch(FormatException ex)
+            {
+                Console.WriteLine("Podano nieprawidlowy format! {0}", ex.Message);
+            }
+            
+          
 
         }
 
         public void UsunDruzyne(int idd)
         {
-            Druzyna dr = lista_allDruzyn.Find(d => d.getId().Equals(idd));
-            lista_allDruzyn.Remove(dr);
+            
+                Druzyna dr = lista_allDruzyn.Find(d => d.getId().Equals(idd));
+                lista_allDruzyn.Remove(dr);
+                    
         }
 
         public void UsunSedziego(int idd)
         {
-            Sedzia se = lista_allSedziow.Find(s => s.getId().Equals(idd));
-            lista_allSedziow.Remove(se);
+           
+                Sedzia se = lista_allSedziow.Find(s => s.getId().Equals(idd));
+                lista_allSedziow.Remove(se);
+          
+            
         }
 
         public void PrzegladDruzyn()
@@ -213,86 +234,115 @@ namespace KAPAKABANA
 
         public void ZapisDoPliku(String nazwa, int rodzaj_listy)
         {
-
             StreamWriter sw = new StreamWriter(nazwa);
-            switch (rodzaj_listy)
+            try
             {
-                case 1:
-                    for (int i = 0; i < lista_allDruzyn.Count(); i++)
-                    {
-                        sw.WriteLine(lista_allDruzyn[i].getNazwa() + " " + lista_allDruzyn[i].getId() + " " + lista_allDruzyn[i].getLiczbaZwyciestw());
-                    }
-                    break;
-                case 2:
-                    for (int i = 0; i < lista_allSedziow.Count(); i++)
-                    {
-                        sw.WriteLine(lista_allSedziow[i].getImie() + " " + lista_allSedziow[i].getNazwisko() + " " + lista_allSedziow[i].getId());
-                    }
-                    break;
-                case 3:
-                    for (int i = 0; i < lista_meczy.Count(); i++)
-                    {
-                        sw.WriteLine(lista_meczy[i].getId() + " " + lista_meczy[i].getDruzyny()[0].getNazwa() + " " + lista_meczy[i].getDruzyny()[1].getNazwa() + " " + lista_meczy[i].getSedzie()[0].getId());
-                    }
-                    break;
+                
+                switch (rodzaj_listy)
+                {
+                    case 1:
+                        for (int i = 0; i < lista_allDruzyn.Count(); i++)
+                        {
+                            sw.WriteLine(lista_allDruzyn[i].getNazwa() + " " + lista_allDruzyn[i].getId() + " " + lista_allDruzyn[i].getLiczbaZwyciestw());
+                        }
+                        break;
+                    case 2:
+                        for (int i = 0; i < lista_allSedziow.Count(); i++)
+                        {
+                            sw.WriteLine(lista_allSedziow[i].getImie() + " " + lista_allSedziow[i].getNazwisko() + " " + lista_allSedziow[i].getId());
+                        }
+                        break;
+                    case 3:
+                        for (int i = 0; i < lista_meczy.Count(); i++)
+                        {
+                            sw.WriteLine(lista_meczy[i].getId() + " " + lista_meczy[i].getDruzyny()[0].getNazwa() + " " + lista_meczy[i].getDruzyny()[1].getNazwa() + " " + lista_meczy[i].getSedzie()[0].getId());
+                        }
+                        break;
+                }
+                
             }
-            sw.Close();
+            catch(Exception ex)
+            {
+                throw new Exception(String.Format("Wystapil blad podczas odczytu {0}", ex.Message), ex);
+            }
+            finally
+            {
+                sw.Close();
+            }
+           
         }
 
         public void OdczytZPliku(String nazwa, int rodzaj_listy)
         {
             StreamReader sr = new StreamReader(nazwa);
-            String linia;
-            switch (rodzaj_listy)
+            try
             {
-                case 1:
-                    Druzyna tmp1;
-                    while ((linia = sr.ReadLine()) != null)
-                    {
-                        string[] s = linia.Split(null);
-                        tmp1 = new Druzyna(s[0], int.Parse(s[1]));
-                        for (int i = 0; i < int.Parse(s[2]); i++)
+                
+                String linia;
+                switch (rodzaj_listy)
+                {
+                    case 1:
+                        Druzyna tmp1;
+                        while ((linia = sr.ReadLine()) != null)
                         {
-                            tmp1.setLiczbaZwyciestw();
+                            string[] s = linia.Split(null);
+                            tmp1 = new Druzyna(s[0], int.Parse(s[1]));
+                            for (int i = 0; i < int.Parse(s[2]); i++)
+                            {
+                                tmp1.setLiczbaZwyciestw();
+                            }
+                            lista_allDruzyn.Add(tmp1);
                         }
-                        lista_allDruzyn.Add(tmp1);
-                    }
-                    break;
-                case 2:
-                    Sedzia tmp2;
-                    while ((linia = sr.ReadLine()) != null)
-                    {
-                        string[] s = linia.Split(null);
-                        tmp2 = new Sedzia(s[0], s[1], int.Parse(s[2]));
-                        lista_allSedziow.Add(tmp2);
-                    }
-                    break;
-                case 3:
-                    Mecz tmp3;
-                    while ((linia = sr.ReadLine()) != null)
-                    {
-                        string[] s = linia.Split(null);
-                        tmp3 = new Mecz(int.Parse(s[0]));
-                        foreach (Druzyna d in lista_allDruzyn)
+                        break;
+                    case 2:
+                        Sedzia tmp2;
+                        while ((linia = sr.ReadLine()) != null)
                         {
-                            if (d.getNazwa() == s[1])
-                                tmp3.DodajDruzyne(d);
+                            string[] s = linia.Split(null);
+                            tmp2 = new Sedzia(s[0], s[1], int.Parse(s[2]));
+                            lista_allSedziow.Add(tmp2);
                         }
-                        foreach (Druzyna d in lista_allDruzyn)
+                        break;
+                    case 3:
+                        Mecz tmp3;
+                        while ((linia = sr.ReadLine()) != null)
                         {
-                            if (d.getNazwa() == s[2])
-                                tmp3.DodajDruzyne(d);
+                            string[] s = linia.Split(null);
+                            tmp3 = new Mecz(int.Parse(s[0]));
+                            foreach (Druzyna d in lista_allDruzyn)
+                            {
+                                if (d.getNazwa() == s[1])
+                                    tmp3.DodajDruzyne(d);
+                            }
+                            foreach (Druzyna d in lista_allDruzyn)
+                            {
+                                if (d.getNazwa() == s[2])
+                                    tmp3.DodajDruzyne(d);
+                            }
+                            foreach (Sedzia se in lista_allSedziow)
+                            {
+                                if (se.getId() == int.Parse(s[3]))
+                                    tmp3.DodajSedziego(se);
+                            }
+                            lista_meczy.Add(tmp3);
+                            
                         }
-                        foreach (Sedzia se in lista_allSedziow)
-                        {
-                            if (se.getId() == int.Parse(s[3]))
-                                tmp3.DodajSedziego(se);
-                        }
-                        lista_meczy.Add(tmp3);
-                    }
-                    break;
+                        break;
+                        
+                }
+                
             }
-            sr.Close();
+            catch(Exception e)
+            {
+                throw new Exception(String.Format("Wystapil blad podczas odczytu {0}", e.Message), e);
+            }
+            finally
+            {
+                sr.Close();
+            }
+           
+            
+            
         }
 
         public void WyborFinalistow()
@@ -309,17 +359,6 @@ namespace KAPAKABANA
         {
             return this.id;
         }
-        public void UstawTyp(int typ_)
-        {
-            this.typ =(typTurnieju)typ_;
-        }
-        public void wypisztyp()
-        {
-            Console.WriteLine(typ);
-        }
-        public typTurnieju getTyp()
-        {
-            return this.typ;
-        }
+ 
     }
 }
