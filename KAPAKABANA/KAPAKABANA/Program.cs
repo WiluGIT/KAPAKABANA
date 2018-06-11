@@ -28,12 +28,14 @@ namespace KAPAKABANA
             
             Turniej turniej = new Turniej(rnd.Next(0, 10000),wybor);
             int odp=1,a = 0, wynik1,wynik2;
+            Console.Beep(10000,1000);
             while (odp != 0)
             {
                 try
                 {
                     Console.WriteLine("Menu.\n1.Dodaj druzyne do turnieju.\n2.Dodaj sedziego.\n3.Przeglad druzyn.\n4.Przeglad sedziow.\n5.Przeglad wynikow.\n6.Przeglad meczy\n7.Usun druzyne.\n8.Usun sedziego.\n9.Zapisz danych do pliku.\n10.Odczyt danych z pliku\n11.Rozpocznij turniej\n0.Wyjdz z programu");
                     odp = Convert.ToInt32(Console.ReadLine());
+                    Console.Beep();
                     switch (odp)
                     {
                         case 1:
