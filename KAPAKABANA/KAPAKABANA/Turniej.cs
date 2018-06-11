@@ -24,27 +24,34 @@ namespace KAPAKABANA
         Random rnd = new Random();
         private typTurnieju typ;
         private Druzyna[] final = new Druzyna[2];
-        
+
+        //Publiczny konstruktor 2-parametrowy przyjmujący 2 parametry typu int.
+        //Ustawia prywatne pola klasy.
         public Turniej(int idd, int typ_)
         {
             this.id = idd;
             this.typ = (typTurnieju)typ_;
         }
 
+        //Publiczna metoda zwracająca listę wszystkich meczy w turnieju.
         public List<Mecz> getMecze()
         {
             return this.lista_meczy;
         }
+
+        //Publiczna metoda zwracająca listę wszystkich sędziów w turnieju.
         public List<Sedzia> getSedzie()
         {
             return this.lista_allSedziow;
         }
 
+        //Publiczna metoda zwracająca listę wszystkich drużyn w turnieju.
         public List<Druzyna> getDruzyny()
         {
             return this.lista_allDruzyn;
         }
 
+        //Publiczna metoda tworząca obiekt typu Druzyna i dodająca go do listy wszystkich drużyn w turnieju.
         public void DodajDruzyne()
         {
              string name;
@@ -64,6 +71,8 @@ namespace KAPAKABANA
             }
              
         }
+
+        //Publiczna metoda tworząca obiekt typu Sedzia i dodająca go do listy wszystkich sędziów w turnieju.
         public void DodajSedziego()
         {
             try
@@ -90,6 +99,8 @@ namespace KAPAKABANA
 
         }
 
+        //Publiczna metoda przyjmująca parametr typu int.
+        //Wyszukuje drużynę o podanym jako parametr id i usuwa ją z listy wszystkich drużyn w turnieju.
         public void UsunDruzyne(int idd)
         {
             
@@ -98,6 +109,8 @@ namespace KAPAKABANA
                     
         }
 
+        //Publiczna metoda przyjmująca parametr typu int.
+        //Wyszukuje sędziego o podanym jako parametr id i usuwa go z listy wszystkich sędziów w turnieju.
         public void UsunSedziego(int idd)
         {
            
@@ -107,6 +120,7 @@ namespace KAPAKABANA
             
         }
 
+        //Publiczna metoda wypisująca na ekran dane o każdej drużynie znajdującej się na liście wszystkich drużyn w turnieju.
         public void PrzegladDruzyn()
         {
             foreach(Druzyna d in lista_allDruzyn)
@@ -117,6 +131,7 @@ namespace KAPAKABANA
             }
         }
 
+        //Publiczna metoda wypisująca na ekran dane o każdym sędzim znajdującym się na liście wszystkich sędziów w turnieju
         public void PrzegladSedziow()
         {
             foreach(Sedzia s in lista_allSedziow)
@@ -127,6 +142,9 @@ namespace KAPAKABANA
 
         }
 
+        //Publiczna metoda, która na podstawie typu stworzonego turnieju tworzy obiekty rozgrywek
+        //o tym typie i dodaje je do listy wszystkich meczy w turnieju.
+        //Dodatkowo dla typu Siatkówka tworzeni są dwaj sędziowie pomocniczy i dodani do listy wszystkich sędziów w turnieju.
         public void StworzMecz()
         {
 
@@ -163,6 +181,7 @@ namespace KAPAKABANA
 
         }
 
+        //Publiczna metoda wypisująca na ekran nazwę drużyny i odpowiadającą jej liczbę zwycięstw.
         public void WypiszWyniki()
         {
             foreach(Druzyna d in lista_allDruzyn)
@@ -172,6 +191,8 @@ namespace KAPAKABANA
 
             }
         }
+
+        //Publiczna metoda wypisująca na ekran dane o wszystkich meczach w turnieju.
         public void WypiszMecze()
         {
             foreach (Mecz m in lista_meczy)
@@ -179,6 +200,9 @@ namespace KAPAKABANA
                 Console.WriteLine(m.getId() + " " + m.getDruzyny()[0].getNazwa() + " " + m.getDruzyny()[1].getNazwa() + " " + m.getSedzie()[0].getId());
             }
         }
+
+        //Publiczna metoda wybierająca spośród 4 drużyn, znajdujących się w tablicy finaliści, dwie które przechodzą do finału.
+        //Zostają one dodane do tablicy finał. Wybór odbywa się za pośrednictwem użytkownika.
         public void GenereowaniePolFinalow()
         {
 
@@ -206,6 +230,9 @@ namespace KAPAKABANA
             }
 
         }
+
+        //Publiczna metoda wybierająca spośród dwóch finalistów jednego, który wygrywa turniej.
+        //Wybór odbywa się za pośrednictwem użytkownika
         public void GenerowanieFinalow()
         {
             Console.WriteLine("Final gra {0} z {1} ", final[0].getNazwa(), final[1].getNazwa());
@@ -232,6 +259,8 @@ namespace KAPAKABANA
 
         }
 
+        //Publiczna metoda zapisująca dane o turnieju do pliku tekstowego.
+        //Przyjmuje jako parametry nazwę pliku oraz rodzaj listy, z której mają być odczytane dane.
         public void ZapisDoPliku(String nazwa, int rodzaj_listy)
         {
             StreamWriter sw = new StreamWriter(nazwa);
@@ -272,6 +301,8 @@ namespace KAPAKABANA
            
         }
 
+        //Publiczna metoda odczytująca dane z pliku tekstowego do programu.
+        //Przyjmuje jako parametry nazwę pliku oraz rodzaj listy do której mają być zapisane dane.
         public void OdczytZPliku(String nazwa, int rodzaj_listy)
         {
             StreamReader sr = new StreamReader(nazwa);
@@ -345,6 +376,8 @@ namespace KAPAKABANA
             
         }
 
+        //Publiczna metoda sortująca listę drużyn malejąco na podstawie liczy zwycięstw.
+        //Dodaje cztery pierwsze wyniki do tablicy finaliści.
         public void WyborFinalistow()
         {
             List<Druzyna> tmp = new List<Druzyna>();
@@ -355,6 +388,7 @@ namespace KAPAKABANA
             }
         }
 
+        //Publiczna metoda zwracająca id turnieju.
         public int getId()
         {
             return this.id;
