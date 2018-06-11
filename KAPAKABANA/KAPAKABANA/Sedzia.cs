@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PO_KAPAKABANA
 {
-    class Sedzia
+    public class Sedzia
     {
         private string imie;
         private string nazwisko;

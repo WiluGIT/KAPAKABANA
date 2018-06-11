@@ -13,7 +13,7 @@ using PO_KAPAKABANA;
 namespace KAPAKABANA
 {
 
-    class Turniej
+    public class Turniej
     {
         private List<Mecz> lista_meczy = new List<Mecz>();
         private List<Druzyna> lista_allDruzyn = new List<Druzyna>();
@@ -197,7 +197,7 @@ namespace KAPAKABANA
         {
             foreach (Mecz m in lista_meczy)
             {
-                Console.WriteLine(m.getId() + " " + m.getDruzyny()[0].getNazwa() + " " + m.getDruzyny()[1].getNazwa() + " " + m.getSedzie()[0].getId());
+                Console.WriteLine(m.getId() + " " + m.getDruzyny()[0].getNazwa() + " " + m.getDruzyny()[1].getNazwa() + " " + m.GetSedzie()[0].getId());
             }
         }
 
@@ -284,7 +284,7 @@ namespace KAPAKABANA
                     case 3:
                         for (int i = 0; i < lista_meczy.Count(); i++)
                         {
-                            sw.WriteLine(lista_meczy[i].getId() + " " + lista_meczy[i].getDruzyny()[0].getNazwa() + " " + lista_meczy[i].getDruzyny()[1].getNazwa() + " " + lista_meczy[i].getSedzie()[0].getId());
+                            sw.WriteLine(lista_meczy[i].getId() + " " + lista_meczy[i].getDruzyny()[0].getNazwa() + " " + lista_meczy[i].getDruzyny()[1].getNazwa() + " " + lista_meczy[i].GetSedzie()[0].getId());
                         }
                         break;
                 }
@@ -393,6 +393,10 @@ namespace KAPAKABANA
         {
             return this.id;
         }
- 
+        //Publiczna metoda zwracająca tablice finalistów.(w testach)
+        public Druzyna[] getFinalisci()
+        {
+            return this.finalisci;
+        }
     }
 }

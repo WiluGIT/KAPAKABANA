@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PO_KAPAKABANA
 {
-    class Mecz
+    public class Mecz
     {
 
         private int id;
@@ -26,7 +26,7 @@ namespace PO_KAPAKABANA
         }
 
         //publiczna metoda zwracająca prywatną tablicę typu Sedzia.
-        public Sedzia[] getSedzie()
+        public Sedzia[] GetSedzie()
         {
             return this.sedziaTab;
         }

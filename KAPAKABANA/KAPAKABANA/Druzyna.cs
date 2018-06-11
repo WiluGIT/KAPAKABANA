@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PO_KAPAKABANA
 {
-    class Druzyna
+    public class Druzyna
     {
         private string nazwa;
         private int id;
