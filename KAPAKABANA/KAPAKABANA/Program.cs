@@ -20,9 +20,9 @@ namespace KAPAKABANA
                 Console.WriteLine("Jaki typ turnieju chcialbys stworzyc ?\n1.Przeciaganie Liny\n2.Dwa Ognie\n3.Siatkowka");
                  wybor = Convert.ToInt32(Console.ReadLine());
             }
-            catch
+            catch(FormatException ex)
             {
-                Console.WriteLine("Wybrany typ jest nieprwidlowy");
+                Console.WriteLine("Wybrany typ jest nieprwidlowy: {0}",ex.Message);
                 Environment.Exit(0);
             }
             
