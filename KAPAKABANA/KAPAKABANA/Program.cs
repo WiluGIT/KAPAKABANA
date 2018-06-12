@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Media;
+using System.IO;
 using PO_KAPAKABANA;
 
 namespace KAPAKABANA
@@ -14,6 +15,18 @@ namespace KAPAKABANA
 
         static void Main(string[] args)
         {
+            try
+            {
+                var myPlayer = new System.Media.SoundPlayer();
+                myPlayer.SoundLocation = @"cello.wav";
+                myPlayer.PlayLooping();
+            }
+            catch(FileNotFoundException ex)
+            {
+                Console.WriteLine(ex);
+            }
+            
+
             Random rnd = new Random();
             try
             {
@@ -98,11 +111,19 @@ namespace KAPAKABANA
                             turniej.ZapisDoPliku(fileName, rodzaj_doZapisu);
                             break;
                         case 10:
-                            Console.WriteLine("Podaj nazwe pliku");
-                            string fileName2 = Console.ReadLine();
-                            Console.WriteLine("Podaj rodzaj do odczytu\n1.Druzyna\n2.Sedzie\n3.Mecze");
-                            int rodzaj_doOdczytu = Convert.ToInt32(Console.ReadLine());
-                            turniej.OdczytZPliku(fileName2, rodzaj_doOdczytu);
+                            try
+                            {
+                                Console.WriteLine("Podaj nazwe pliku");
+                                string fileName2 = Console.ReadLine();
+                                Console.WriteLine("Podaj rodzaj do odczytu\n1.Druzyna\n2.Sedzie\n3.Mecze");
+                                int rodzaj_doOdczytu = Convert.ToInt32(Console.ReadLine());
+                                turniej.OdczytZPliku(fileName2, rodzaj_doOdczytu);
+                            }
+                            catch(FileNotFoundException ex)
+                            {
+                                Console.WriteLine(ex);
+                            }
+                            
                             break;
                         case 11:
 
